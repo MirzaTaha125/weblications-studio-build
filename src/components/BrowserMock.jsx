@@ -1,4 +1,4 @@
-const BrowserMock = ({ accent = "rgba(255,59,92,0.25)" }) => (
+const BrowserMock = ({ accent = "rgba(7,138,245,0.25)" }) => (
   <div className="browser-mock">
     <div className="browser-bar">
       <span /><span /><span />

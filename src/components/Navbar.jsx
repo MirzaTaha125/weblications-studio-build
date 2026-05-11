@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Phone } from "lucide-react";
 
 const links = [
   { to: "/home", label: "Home" },
@@ -35,16 +36,28 @@ const Navbar = () => {
     <>
       <nav className={`nav${scrolled ? " scrolled" : ""}`}>
         <div className="nav-inner">
-          <Logo />
-          <div className="nav-links">
-            {links.map(l => (
-              <Link key={l.to} to={l.to} className={`nav-link${pathname === l.to ? " active" : ""}`}>{l.label}</Link>
-            ))}
+          <div className="nav-left">
+            <a href="tel:+923000000000" className="nav-phone">
+              <Phone size={16} />
+              <span>+92 300 0000000</span>
+            </a>
           </div>
-          <Link to="/contact" className="btn btn-primary btn-sm">Start a Project</Link>
-          <button className="nav-burger" aria-label="Menu" onClick={() => setOpen(o => !o)}>
-            <span /><span /><span />
-          </button>
+
+          <div className="nav-center">
+            <Logo />
+          </div>
+
+          <div className="nav-right">
+            <div className="nav-links">
+              {links.map(l => (
+                <Link key={l.to} to={l.to} className={`nav-link${pathname === l.to ? " active" : ""}`}>{l.label}</Link>
+              ))}
+            </div>
+            <Link to="/contact" className="btn btn-primary btn-sm">Start a Project</Link>
+            <button className={`nav-burger${open ? " open" : ""}`} aria-label="Menu" onClick={() => setOpen(o => !o)}>
+              <span /><span /><span />
+            </button>
+          </div>
         </div>
       </nav>
       {open && (

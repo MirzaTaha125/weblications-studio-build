@@ -209,7 +209,7 @@ const PriceCard = ({ p }) => {
       ...styles,
       borderRadius: 24, padding: 40, position: "relative",
       transform: p.featured ? "translateY(-20px)" : "none",
-      boxShadow: p.featured ? "0 24px 60px rgba(255,59,92,0.25)" : "0 2px 20px rgba(0,0,0,0.06)",
+      boxShadow: p.featured ? "0 24px 60px rgba(7,138,245,0.25)" : "0 2px 20px rgba(0,0,0,0.06)",
       display: "flex", flexDirection: "column",
     }}>
       {p.featured && (

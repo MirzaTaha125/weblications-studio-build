@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Footer = () => (
   <footer className="footer">
@@ -36,12 +37,28 @@ const Footer = () => (
         <h4>Get In Touch</h4>
         <a className="footer-coral" href="mailto:hello@weblications.studio">hello@weblications.studio</a><br />
         <p>+92 300 0000000</p>
-        <p>Karachi, Pakistan</p>
+        <p>Available Worldwide</p>
       </div>
     </div>
+
+    <div className="footer-brand-wrap">
+      {"WEBLICATIONS".split("").map((char, i) => (
+        <motion.span
+          key={i}
+          initial={{ y: "100%", opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, delay: i * 0.05, ease: [0.215, 0.61, 0.355, 1] }}
+          viewport={{ once: true, margin: "-50px" }}
+          style={{ display: "inline-block" }}
+        >
+          {char}
+        </motion.span>
+      ))}
+    </div>
+
     <div className="footer-bottom">
       <span className="footer-copy">© {new Date().getFullYear()} Weblications Studios. All rights reserved.</span>
-      <span className="footer-craft">Crafted with obsession in Karachi.</span>
+      <span className="footer-craft">Crafted with obsession.</span>
     </div>
   </footer>
 );

@@ -1,12 +1,51 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal.jsx";
 
+
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", budget: "", message: "" });
-  const [sent, setSent] = useState(false);
-  const onChange = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
-  const submit = (e) => { e.preventDefault(); setSent(true); setTimeout(() => setSent(false), 4000); setForm({ name: "", email: "", phone: "", service: "", budget: "", message: "" }); };
+  const form = useRef();
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [isSending, setIsSending] = useState(false);
+  const [status, setStatus] = useState({ type: '', message: '' });
+
+  const onChange = (k) => (e) => setFormData(f => ({ ...f, [k]: e.target.value }));
+
+  const submit = (e) => {
+    e.preventDefault();
+    setIsSending(true);
+    setStatus({ type: '', message: '' });
+
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      message: formData.message,
+      brand: "Weblications",
+      source: "Weblications"
+    };
+
+    fetch("http://localhost:5001/api/public/inquiries", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(async (res) => {
+        if (!res.ok) throw new Error("Failed to send");
+        setStatus({ type: 'success', message: 'Message Sent ✓' });
+        setFormData({ name: "", email: "", phone: "", message: "" });
+        setTimeout(() => setStatus({ type: '', message: '' }), 4000);
+      })
+      .catch((error) => {
+        console.error("Submission error:", error);
+        setStatus({ type: 'error', message: 'Error sending message. Please try again.' });
+      })
+      .finally(() => {
+        setIsSending(false);
+      });
+  };
 
   return (
     <>
@@ -23,7 +62,6 @@ const Contact = () => {
             {[
               ["EMAIL", "hello@weblications.studio"],
               ["WHATSAPP", "+92 300 0000000"],
-              ["LOCATION", "Karachi, PK"],
             ].map(([m, v]) => (
               <span key={m} style={{ background: "var(--bg-dark-2)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "10px 24px", display: "flex", gap: 10 }}>
                 <span style={{ fontWeight: 600, color: "rgba(255,255,255,0.5)", fontSize: "0.78rem" }}>{m}</span>
@@ -40,33 +78,29 @@ const Contact = () => {
           <div>
             <h2 style={{ fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: "1.5rem", marginBottom: 6 }}>Send us a message.</h2>
             <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: 32 }}>We will get back to you within 24 hours. Promise.</p>
-            <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+            <form ref={form} onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-                <Field label="Name"><input required value={form.name} onChange={onChange("name")} placeholder="Your name" /></Field>
-                <Field label="Email"><input required type="email" value={form.email} onChange={onChange("email")} placeholder="you@email.com" /></Field>
+                <Field label="Name"><input name="user_name" required value={formData.name} onChange={onChange("name")} placeholder="Your name" /></Field>
+                <Field label="Email"><input name="user_email" required type="email" value={formData.email} onChange={onChange("email")} placeholder="you@email.com" /></Field>
               </div>
-              <Field label="Phone"><input value={form.phone} onChange={onChange("phone")} placeholder="+92 300 0000000" /></Field>
-              <Field label="Service">
-                <select required value={form.service} onChange={onChange("service")}>
-                  <option value="">Select a service</option>
-                  <option>Website</option>
-                  <option>Mobile App</option>
-                  <option>E-Commerce</option>
-                  <option>Custom Software</option>
-                  <option>Not Sure Yet</option>
-                </select>
-              </Field>
-              <Field label="Budget">
-                <select required value={form.budget} onChange={onChange("budget")}>
-                  <option value="">Select your budget</option>
-                  <option>Under PKR 30,000</option>
-                  <option>PKR 30,000 - 80,000</option>
-                  <option>PKR 80,000 - 200,000</option>
-                  <option>Above PKR 200,000</option>
-                </select>
-              </Field>
-              <Field label="Message"><textarea required value={form.message} onChange={onChange("message")} placeholder="Tell us about your project..." style={{ height: 140, resize: "vertical" }} /></Field>
-              <button className="btn btn-primary" type="submit" style={{ width: "100%", padding: 16 }}>{sent ? "Message Sent ✓" : "Send Message"}</button>
+              <Field label="Phone"><input name="phone" value={formData.phone} onChange={onChange("phone")} placeholder="+92 300 0000000" /></Field>
+
+              <Field label="Message"><textarea name="message" required value={formData.message} onChange={onChange("message")} placeholder="Tell us about your project..." style={{ height: 140, resize: "vertical" }} /></Field>
+              
+              <button 
+                className={`btn btn-primary ${status.type === 'error' ? 'btn-error' : ''}`} 
+                type="submit" 
+                style={{ 
+                    width: "100%", 
+                    padding: 16,
+                    backgroundColor: status.type === 'success' ? '#4caf50' : (status.type === 'error' ? '#f44336' : ''),
+                    borderColor: status.type === 'success' ? '#4caf50' : (status.type === 'error' ? '#f44336' : '')
+                }} 
+                disabled={isSending}
+              >
+                {isSending ? "Sending..." : (status.message || "Send Message")}
+              </button>
+              
               <p style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>
                 We typically reply within a few hours. Unless something catastrophically dramatic is happening.
               </p>
@@ -78,7 +112,7 @@ const Contact = () => {
               {[
                 ["EMAIL", "hello@weblications.studio"],
                 ["PHONE", "+92 300 0000000"],
-                ["LOCATION", "Karachi, Pakistan"],
+                ["AVAILABILITY", "Mon - Fri, 9am - 6pm"],
                 ["RESPONSE TIME", "Within 24 Hours", "(we are very punctual about this)"],
               ].map(([l, v, sub], i) => (
                 <div key={l} style={{ padding: "18px 0", borderBottom: i < 3 ? "1px solid var(--bg-2)" : "none" }}>
@@ -143,12 +177,12 @@ const Contact = () => {
           }}>
             <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
               <div style={{ position: "relative", width: 24, height: 24 }}>
-                <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "var(--primary)", border: "3px solid #fff", boxShadow: "0 6px 20px rgba(255,59,92,0.4)" }} />
+                <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "var(--primary)", border: "3px solid #fff", boxShadow: "0 6px 20px rgba(7,138,245,0.4)" }} />
                 <span style={{ position: "absolute", inset: -4, borderRadius: "50%", border: "2px solid var(--primary)", animation: "pulse-ring 2s ease-out infinite", opacity: 0.5 }} />
               </div>
             </div>
             <div style={{ position: "absolute", bottom: 24, left: "50%", transform: "translateX(-50%)", background: "#fff", border: "1px solid var(--bg-2)", borderRadius: 100, padding: "8px 20px", boxShadow: "0 4px 12px rgba(0,0,0,0.06)" }}>
-              <span style={{ fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: "0.95rem" }}>Karachi, Pakistan</span>
+              <span style={{ fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: "0.95rem" }}>Available Worldwide</span>
             </div>
           </div>
           <style>{`@keyframes pulse-ring { 0% { transform: scale(0.7); opacity: 0.7; } 100% { transform: scale(2.6); opacity: 0; } }`}</style>
@@ -175,7 +209,7 @@ const Contact = () => {
           font-family: 'DM Sans', sans-serif;
         }
         form input:focus, form select:focus, form textarea:focus {
-          border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255,59,92,0.12);
+          border-color: var(--primary); box-shadow: 0 0 0 3px rgba(7,138,245,0.12);
         }
       `}</style>
     </>

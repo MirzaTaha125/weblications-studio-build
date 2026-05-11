@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Reveal from "../components/Reveal.jsx";
 
 const timeline = [
-  { y: "2022", t: "It Began", d: "Started as a freelance operation, building small websites for local businesses in Karachi. Two people, one laptop, and a lot of coffee." },
+  { y: "2022", t: "It Began", d: "Started as a freelance operation, building small websites for local businesses. Two people, one laptop, and a lot of coffee." },
   { y: "2023", t: "First Real Clients", d: "Landed our first serious clients — a startup and a retail business. Built custom web apps and did not sleep for three months. Worth it." },
   { y: "2024", t: "Weblications Studios", d: "Officially launched as Weblications Studios. Hired our first team members. Moved beyond just websites into full app development." },
   { y: "2025", t: "Growing Fast", d: "50+ projects completed across 12 industries. Expanded our services. And we are just getting started." },
@@ -32,7 +32,7 @@ const About = () => (
             Small team. Massive ambition.
           </h1>
           <p style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.85, marginBottom: 18 }}>
-            We started in Karachi with one stubborn belief — that businesses deserve digital products built with care, not factories that crank out templates and call it a day.
+            We started with one stubborn belief — that businesses deserve digital products built with care, not factories that crank out templates and call it a day.
           </p>
           <p style={{ color: "rgba(255,255,255,0.55)", lineHeight: 1.85, marginBottom: 28 }}>
             Today, Weblications Studios is a small but mighty team. We build websites and apps for businesses that want real results — not just nice-looking deliverables.
@@ -52,7 +52,7 @@ const About = () => (
           </div>
           <div style={{ padding: 32 }}>
             <h3 style={{ color: "#fff", fontWeight: 700, fontSize: "1.2rem", marginBottom: 6 }}>Weblications Studios</h3>
-            <p style={{ color: "var(--accent)", fontSize: "0.85rem", marginBottom: 20 }}>Karachi, Pakistan</p>
+            <p style={{ color: "var(--accent)", fontSize: "0.85rem", marginBottom: 20 }}>Global Operations</p>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {["Design", "Development", "Delivery"].map(t => (
                 <span key={t} style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 100, padding: "5px 14px", fontSize: "0.78rem", color: "#fff" }}>{t}</span>
@@ -105,7 +105,7 @@ const About = () => (
         <div style={{ background: "var(--primary)", borderRadius: 24, padding: 60, position: "relative", overflow: "hidden" }}>
           <div style={{ color: "rgba(255,255,255,0.7)", fontWeight: 600, textTransform: "uppercase", letterSpacing: 2, fontSize: "0.78rem", marginBottom: 24 }}>Our Vision</div>
           <h3 style={{ fontFamily: "Bricolage Grotesque", fontWeight: 700, color: "#fff", fontSize: "clamp(1.4rem, 2.5vw, 2rem)", lineHeight: 1.4, letterSpacing: "-0.5px" }}>
-            To become the most trusted digital studio in Pakistan — and then some.
+            To become the most trusted digital studio globally — and then some.
           </h3>
           <div style={{ position: "absolute", right: 24, bottom: -10, fontFamily: "Bricolage Grotesque", fontWeight: 800, fontSize: "5rem", color: "rgba(255,255,255,0.18)" }}>→</div>
         </div>
@@ -172,7 +172,7 @@ const About = () => (
             "Post-launch support included in every plan",
           ].map((r, i) => (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 16, padding: "18px 0", borderBottom: i < 4 ? "1px solid rgba(255,255,255,0.06)" : "none" }}>
-              <span style={{ width: 28, height: 28, background: "rgba(255,59,92,0.15)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontWeight: 700, flexShrink: 0 }}>✓</span>
+              <span style={{ width: 28, height: 28, background: "rgba(7,138,245,0.15)", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary)", fontWeight: 700, flexShrink: 0 }}>✓</span>
               <span style={{ color: "#fff", fontWeight: 500, fontSize: "0.95rem" }}>{r}</span>
             </div>
           ))}

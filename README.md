@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Weblications Studios
 
 TODO: Document your project here
