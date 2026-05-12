@@ -1,6 +1,6 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Phone } from 'lucide-react';
 import './StaggeredMenu.css';
 
@@ -23,6 +23,7 @@ export const StaggeredMenu = ({
   onMenuClose
 }) => {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const openRef = useRef(false);
   const panelRef = useRef(null);
@@ -259,7 +260,7 @@ export const StaggeredMenu = ({
       if (!btn) return;
       colorTweenRef.current?.kill();
       if (changeMenuColorOnOpen) {
-        const targetColor = (opening || scrolled) ? openMenuButtonColor : menuButtonColor;
+        const targetColor = (opening || scrolled || pathname === '/home' || pathname === '/') ? openMenuButtonColor : menuButtonColor;
         colorTweenRef.current = gsap.to(btn, {
           color: targetColor,
           delay: opening ? 0.18 : 0,
@@ -276,7 +277,7 @@ export const StaggeredMenu = ({
   React.useEffect(() => {
     if (toggleBtnRef.current) {
       if (changeMenuColorOnOpen) {
-        const targetColor = (open || scrolled) ? openMenuButtonColor : menuButtonColor;
+        const targetColor = (open || scrolled || pathname === '/home' || pathname === '/') ? openMenuButtonColor : menuButtonColor;
         gsap.to(toggleBtnRef.current, { color: targetColor, duration: 0.3 });
       } else {
         gsap.to(toggleBtnRef.current, { color: menuButtonColor, duration: 0.3 });
@@ -378,7 +379,7 @@ export const StaggeredMenu = ({
           return arr.map((c, i) => <div key={i} className="sm-prelayer" style={{ background: c }} />);
         })()}
       </div>
-      <header className={`staggered-menu-header${scrolled ? " scrolled" : ""}`} aria-label="Main navigation header">
+      <header className={`staggered-menu-header${scrolled ? " scrolled" : ""} ${pathname === "/home" || pathname === "/" ? "home-header" : ""}`} aria-label="Main navigation header">
         <div className="sm-header-left">
           <a href="tel:+923000000000" className="sm-phone">
             <Phone size={16} />
@@ -399,9 +400,9 @@ export const StaggeredMenu = ({
               />
             ) : (
                <Link to="/home" className="logo" style={{ textDecoration: 'none' }}>
-                  <span className="logo-main" style={{ color: (open || scrolled) ? '#111' : '#fff', transition: 'color 0.3s ease' }}>Weblications</span>
-                  <span className="logo-dot" />
-                  <span className="logo-sub" style={{ color: (open || scrolled) ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)', transition: 'color 0.3s ease' }}>Studios</span>
+                   <span className="logo-main">Weblications</span>
+                   <span className="logo-dot" />
+                   <span className="logo-sub">Studios</span>
                </Link>
             )}
           </div>

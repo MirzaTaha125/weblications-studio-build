@@ -37,13 +37,6 @@ const Navbar = () => {
       <nav className={`nav${scrolled ? " scrolled" : ""}`}>
         <div className="nav-inner">
           <div className="nav-left">
-            <a href="tel:+923000000000" className="nav-phone">
-              <Phone size={16} />
-              <span>+92 300 0000000</span>
-            </a>
-          </div>
-
-          <div className="nav-center">
             <Logo />
           </div>
 
@@ -53,7 +46,7 @@ const Navbar = () => {
                 <Link key={l.to} to={l.to} className={`nav-link${pathname === l.to ? " active" : ""}`}>{l.label}</Link>
               ))}
             </div>
-            <Link to="/contact" className="btn btn-primary btn-sm">Start a Project</Link>
+            <Link to="/contact" className="btn btn-primary btn-sm">Get a Quote</Link>
             <button className={`nav-burger${open ? " open" : ""}`} aria-label="Menu" onClick={() => setOpen(o => !o)}>
               <span /><span /><span />
             </button>

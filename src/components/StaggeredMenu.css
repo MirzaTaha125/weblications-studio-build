@@ -76,6 +76,14 @@
   color: #111;
 }
 
+.staggered-menu-header.home-header .sm-phone {
+  color: #111;
+}
+
+.staggered-menu-header.home-header .sm-phone:hover {
+  color: var(--primary, #078AF5);
+}
+
 .staggered-menu-header.scrolled {
   padding: 1.2em 4em;
   background: rgba(247, 244, 239, 0.95);
@@ -93,6 +101,28 @@
   display: flex;
   align-items: center;
   user-select: none;
+}
+
+.sm-logo .logo-main {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.sm-logo .logo-sub {
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.staggered-menu-header.scrolled .logo-main,
+.staggered-menu-header.home-header .logo-main,
+[data-open] .logo-main {
+  color: #111 !important;
+}
+
+.staggered-menu-header.scrolled .logo-sub,
+.staggered-menu-header.home-header .logo-sub,
+[data-open] .logo-sub {
+  color: rgba(0,0,0,0.5) !important;
 }
 
 .sm-logo-img {

@@ -5,6 +5,7 @@ import Reveal from "../components/Reveal.jsx";
 import Counter from "../components/Counter.jsx";
 import { Globe } from "../components/ui/Globe.jsx";
 import BrowserMock from "../components/BrowserMock.jsx";
+import UnlockDiscountModal from "../components/UnlockDiscountModal.jsx";
 
 const services = [
   { n: "01", t: "Website Development", d: "From landing pages to complex platforms. We build websites that look great and convert visitors into customers.", tags: ["React", "Next.js", "WordPress"] },
@@ -50,7 +51,7 @@ const ProcessSection = ({ steps }) => {
         particleCount: 200,
         spread: 120,
         origin: { y: 0.5 },
-        colors: ['#078af5', '#000000', '#ffffff'],
+        colors: ['#F47A1F', '#000000', '#ffffff'],
         zIndex: 9999
       });
     } else if (latest < 0.9) {
@@ -59,7 +60,7 @@ const ProcessSection = ({ steps }) => {
   });
 
   const stepDetails = [
-    { ...steps[0], color: "#078af5", bg: "rgba(7, 138, 245, 0.05)" },
+    { ...steps[0], color: "#F47A1F", bg: "rgba(244, 122, 31, 0.05)" },
     { ...steps[1], color: "#9c27b0", bg: "rgba(156, 39, 176, 0.05)" },
     { ...steps[2], color: "#2e7d32", bg: "rgba(46, 125, 50, 0.05)" },
     { ...steps[3], color: "#ff6f00", bg: "rgba(255, 111, 0, 0.05)" },
@@ -148,7 +149,7 @@ const ProcessSection = ({ steps }) => {
                   particleCount: 200,
                   spread: 120,
                   origin: { y: 0.5 },
-                  colors: ['#078af5', '#000000', '#ffffff'],
+                  colors: ['#F47A1F', '#000000', '#ffffff'],
                   zIndex: 9999
                 });
               }}
@@ -184,7 +185,6 @@ const testimonials = [
   { q: "We launched in five weeks. They actually communicated. Wild concept.", a: "Daniyal K.", c: "BrandLaunch" },
 ];
 
-const techList = ["React", "Next.js", "Flutter", "Node.js", "WordPress", "Shopify", "Firebase", "Figma", "TypeScript", "Python", "PostgreSQL", "AWS"];
 
 const projects = [
   { name: "RetailEdge", cat: "E-Commerce", tags: ["React", "Stripe"], h: 450, grad: "linear-gradient(135deg,#2D1B69 0%,#11094C 100%)", col: "span 2", row: "span 1" },
@@ -194,6 +194,7 @@ const projects = [
 ];
 
 const Home = () => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
   return (
     <>
       {/* === Hero === */}
@@ -207,13 +208,13 @@ const Home = () => {
             height: "100%",
             objectFit: "cover",
             zIndex: 0,
-            filter: "brightness(0.6) contrast(1)"
+            filter: "brightness(0.85) contrast(1)"
           }}
-          src="/hero-bg-video-2021.mp4"
+          src="/hero-banner.mp4"
         />
-        <div style={{ position: "absolute", inset: 0, background: "rgba(13,12,14,0.8)", zIndex: 1 }} />
-        <div style={{ position: "relative", zIndex: 2, padding: "120px 4% 160px", maxWidth: 1400, width: "100%", textAlign: "center", margin: "0 auto" }}>
-          <h1 style={{ fontSize: "clamp(2.5rem, 8vw, 7.5rem)", color: "#fff", letterSpacing: "-1.5px", lineHeight: 1, marginBottom: 24 }}>
+        <div style={{ position: "absolute", inset: 0, background: "rgba(13,12,14,0.4)", zIndex: 1 }} />
+        <div style={{ position: "relative", zIndex: 2, padding: "120px 6% 160px 8%", maxWidth: "100%", width: "100%", textAlign: "left" }}>
+          <h1 style={{ fontSize: "clamp(2.5rem, 7vw, 6rem)", color: "#fff", letterSpacing: "-1.5px", lineHeight: 1, marginBottom: 24 }}>
             {["We Design.", "We Develop.", "We Deliver."].map((line, i) => (
               <motion.div
                 key={line}
@@ -230,7 +231,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            style={{ fontSize: "1.2rem", color: "rgba(255,255,255,0.6)", maxWidth: 700, lineHeight: 1.6, marginBottom: 48, marginLeft: "auto", marginRight: "auto", fontWeight: 400 }}
+            style={{ fontSize: "1.2rem", color: "rgba(255,255,255,0.6)", maxWidth: 700, lineHeight: 1.6, marginBottom: 48, fontWeight: 400 }}
           >
             Scaling a business shouldn't be a struggle. We build digital products that make growth predictable, effortless, and fun.
           </motion.p>
@@ -239,27 +240,22 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ maxWidth: 700, margin: "0 auto 24px" }}
+            style={{ maxWidth: 700, margin: "0 0 24px" }}
           >
-            <div className="home-hero-form" style={{ display: "flex", background: "rgba(255,255,255,0.9)", borderRadius: "100px", padding: "6px", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 20px 40px rgba(0,0,0,0.2)" }}>
-              <div className="home-hero-emoji" style={{ display: "flex", alignItems: "center", paddingLeft: 24, fontSize: "1.5rem" }}>👋</div>
-              <input
-                type="email"
-                placeholder="Enter your email here and we'll send you some 'magic'..."
-                className="home-hero-input"
-                style={{ background: "transparent", border: "none", color: "#333", padding: "12px 20px", flex: 1, outline: "none", fontSize: "1.1rem", minWidth: 0 }}
-              />
-              <button className="home-hero-cta" style={{ background: "var(--primary)", color: "#fff", border: "none", padding: "0 32px", borderRadius: "100px", fontWeight: "800", fontSize: "1rem", cursor: "pointer", transition: "transform 0.2s" }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>
-                Let's Go 🚀
-              </button>
-            </div>
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="btn btn-primary"
+              style={{ fontSize: "1.1rem", padding: "16px 40px", borderRadius: "100px", display: "flex", alignItems: "center", gap: "12px" }}
+            >
+              Unlock Discount <span style={{ fontSize: "1.3rem" }}>🔒</span>
+            </button>
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "24px", color: "rgba(255,255,255,0.6)", fontSize: "0.9rem" }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "24px", color: "rgba(255,255,255,0.6)", fontSize: "0.9rem" }}
           >
             <span>*But it's 100% legal (pinky promise)</span>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -272,31 +268,7 @@ const Home = () => {
 
       </section>
 
-      {/* === Marquee === */}
-      <section style={{ background: "var(--primary)", padding: "18px 0", overflow: "hidden" }}>
-        {[false, true].map((rev, idx) => (
-          <div className="marquee" key={idx} style={{ marginTop: idx ? 12 : 0 }}>
-            <div className={`marquee-track${rev ? " reverse" : ""}`}>
-              {Array.from({ length: 4 }).flatMap((_, k) =>
-                ["WEB DESIGN", "APP DEVELOPMENT", "UI/UX", "E-COMMERCE", "AUTOMATION", "FLUTTER", "WORDPRESS"].map((w, i) => (
-                  <span key={`${k}-${i}`} style={{ display: "flex", alignItems: "center", gap: 48, fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: "0.9rem", letterSpacing: "1.5px", color: "#fff" }}>
-                    {w} <span style={{ color: "var(--accent)", fontSize: "0.6rem" }}>●</span>
-                  </span>
-                ))
-              )}
-            </div>
-            <div className={`marquee-track${rev ? " reverse" : ""}`} aria-hidden="true">
-              {Array.from({ length: 4 }).flatMap((_, k) =>
-                ["WEB DESIGN", "APP DEVELOPMENT", "UI/UX", "E-COMMERCE", "AUTOMATION", "FLUTTER", "WORDPRESS"].map((w, i) => (
-                  <span key={`b-${k}-${i}`} style={{ display: "flex", alignItems: "center", gap: 48, fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: "0.9rem", letterSpacing: "1.5px", color: "#fff" }}>
-                    {w} <span style={{ color: "var(--accent)", fontSize: "0.6rem" }}>●</span>
-                  </span>
-                ))
-              )}
-            </div>
-          </div>
-        ))}
-      </section>
+
 
       {/* === The Core (MANIFESTO REDESIGN) === */}
       <section className="section" style={{ padding: "160px 8%", background: "#0D0C0E", position: "relative", overflow: "hidden" }}>
@@ -322,75 +294,75 @@ const Home = () => {
             {/* Card 1: Performance */}
             <motion.div
               className="home-manifesto-card home-manifesto-card-performance"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
               style={{
                 gridColumn: "span 7", gridRow: "span 2",
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: 48, padding: 60,
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                borderRadius: "24px", padding: "40px",
                 display: "flex", flexDirection: "column", justifyContent: "space-between",
                 position: "relative", overflow: "hidden"
               }}
             >
               <div style={{ position: "relative", zIndex: 2 }}>
-                <h3 style={{ fontSize: "3.5rem", color: "#fff", fontWeight: 800, marginBottom: 20, lineHeight: 1 }}>99+ Velocity</h3>
-                <p style={{ fontSize: "1.2rem", color: "rgba(255,255,255,0.5)", maxWidth: 400, lineHeight: 1.6 }}>
+                <h3 style={{ fontSize: "2.5rem", color: "#fff", fontWeight: 800, marginBottom: 16, lineHeight: 1.1 }}>99+ Velocity</h3>
+                <p style={{ fontSize: "1.1rem", color: "rgba(255,255,255,0.5)", maxWidth: 400, lineHeight: 1.6 }}>
                   Our code is optimized to the bone. No bloat, no lag, just raw performance that leaves users in awe.
                 </p>
               </div>
 
               {/* Mini version of the core visual inside the card */}
-              <div style={{ position: "absolute", right: -50, top: "50%", transform: "translateY(-50%)", opacity: 0.4, pointerEvents: "none" }}>
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  style={{ width: 400, height: 400, borderRadius: "50%", border: "1px dashed var(--primary)" }}
-                />
-                <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontSize: "8rem", fontWeight: 900, color: "var(--primary)", opacity: 0.2 }}>99</div>
+              <div style={{ position: "absolute", right: -50, top: "50%", transform: "translateY(-50%)", opacity: 0.2, pointerEvents: "none" }}>
+                <div style={{ width: 300, height: 300, borderRadius: "50%", border: "1px dashed var(--primary)" }} />
+                <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontSize: "6rem", fontWeight: 900, color: "var(--primary)" }}>99</div>
               </div>
 
-              <div style={{ display: "flex", gap: 15, position: "relative", zIndex: 2 }}>
-                {["Lighthouse", "Vitals", "Fast-Pass"].map(t => <span key={t} style={{ padding: "8px 20px", borderRadius: 100, background: "rgba(255,255,255,0.05)", color: "#fff", fontSize: "0.8rem", border: "1px solid rgba(255,255,255,0.1)" }}>{t}</span>)}
+              <div style={{ display: "flex", gap: 12, position: "relative", zIndex: 2 }}>
+                {["Lighthouse", "Vitals", "Fast-Pass"].map(t => <span key={t} style={{ padding: "6px 16px", borderRadius: 100, background: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.7)", fontSize: "0.75rem", border: "1px solid rgba(255,255,255,0.08)" }}>{t}</span>)}
               </div>
             </motion.div>
 
             {/* Card 2: Design */}
             <motion.div
               className="home-manifesto-card home-manifesto-card-design"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
               style={{
                 gridColumn: "span 5", gridRow: "span 3",
-                background: "linear-gradient(135deg, var(--primary) 0%, #0056b3 100%)",
-                borderRadius: 48, padding: 60,
+                background: "linear-gradient(135deg, var(--primary) 0%, #D26414 100%)",
+                borderRadius: "24px", padding: "40px",
                 display: "flex", flexDirection: "column", justifyContent: "flex-end",
-                boxShadow: "0 40px 80px rgba(7, 138, 245, 0.3)"
+                boxShadow: "0 20px 40px rgba(244, 122, 31, 0.15)",
+                position: "relative"
               }}
             >
-              <div style={{ marginBottom: "auto" }}>
-                <svg width="60" height="60" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="30" fill="white" fillOpacity="0.1" /><path d="M40 20L20 40M20 20L40 40" stroke="white" strokeWidth="4" strokeLinecap="round" /></svg>
+              <div style={{ position: "absolute", top: 30, right: 30 }}>
+                <div style={{ width: 40, height: 40, borderRadius: "50%", background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ color: "#fff", fontSize: "1.2rem", fontWeight: "bold" }}>×</span>
+                </div>
               </div>
-              <h3 style={{ fontSize: "3rem", color: "#fff", fontWeight: 800, marginBottom: 20, lineHeight: 1 }}>Pixel<br />Absolute.</h3>
-              <p style={{ fontSize: "1.1rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.6 }}>
+              <h3 style={{ fontSize: "2.5rem", color: "#fff", fontWeight: 800, marginBottom: 16, lineHeight: 1.1 }}>Pixel<br />Absolute.</h3>
+              <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.6 }}>
                 Design isn't just how it looks. It's the feeling of every click and transition. We make it unforgettable.
               </p>
             </motion.div>
 
-            {/* Card 3: Scale */}
             <motion.div
               className="home-manifesto-card home-manifesto-card-scale"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
               style={{
                 gridColumn: "span 7", gridRow: "span 1",
-                background: "rgba(156, 39, 176, 0.1)",
-                border: "1px solid rgba(156, 39, 176, 0.2)",
-                borderRadius: 48, padding: "40px 60px",
-                display: "flex", alignItems: "center", gap: 40
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(255,255,255,0.05)",
+                borderRadius: "24px", padding: "30px 40px",
+                display: "flex", alignItems: "center", gap: 30
               }}
             >
-              <div style={{ fontSize: "4rem", opacity: 0.3 }}>⚡</div>
+              <div style={{ width: 60, height: 60, borderRadius: "12px", background: "rgba(244, 122, 31, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <span style={{ fontSize: "2rem" }}>⚡</span>
+              </div>
               <div>
-                <h3 style={{ fontSize: "2rem", color: "#fff", fontWeight: 800, marginBottom: 8 }}>Scale Without Limits</h3>
-                <p style={{ color: "rgba(255,255,255,0.5)" }}>Built on infrastructure that handles millions of users without breaking a sweat.</p>
+                <h3 style={{ fontSize: "1.5rem", color: "#fff", fontWeight: 800, marginBottom: 6 }}>Scale Without Limits</h3>
+                <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.95rem" }}>Built on infrastructure that handles millions of users without breaking a sweat.</p>
               </div>
             </motion.div>
 
@@ -422,10 +394,10 @@ const Home = () => {
       {/* === Tech Transformation Section === */}
 
       <section className="section-dark" style={{ padding: "120px 8%", position: "relative" }}>
-        <div className="container grid-responsive" style={{ gridTemplateColumns: "1fr 1.2fr", gap: "clamp(40px, 8vw, 100px)" }}>
+        <div className="container grid-responsive" style={{ gridTemplateColumns: "1fr 1.2fr", gap: "clamp(40px, 8vw, 100px)", alignItems: "flex-start" }}>
 
           {/* Left: Sticky Info */}
-          <div className="growth-sticky" style={{ height: "fit-content" }}>
+          <div className="growth-sticky">
             <div className="overline" style={{ marginBottom: 20 }}>How We Help You Grow</div>
             <h2 style={{ fontSize: "clamp(3rem, 5vw, 4.5rem)", color: "#fff", marginBottom: 28, lineHeight: 1.05 }}>
               Solutions that <span style={{ color: "var(--primary)" }}>scale</span> with your vision.
@@ -592,46 +564,61 @@ const Home = () => {
 
 
 
-      {/* === CTA === */}
-      <section className="section section-coral diagonal-top" style={{ padding: "clamp(80px, 12vw, 120px) 8%" }}>
-        <div className="container grid-responsive" style={{ gridTemplateColumns: "1.4fr 1fr", gap: "clamp(40px, 6vw, 60px)", alignItems: "center" }}>
-          <Reveal>
-            <h2 style={{ fontSize: "clamp(2.2rem, 4vw, 3.8rem)", color: "#fff", letterSpacing: "-1px", lineHeight: 1.05, marginBottom: 24 }}>
-              Your business deserves a website that actually works.
+      {/* === Manifesto === */}
+      <section style={{ background: "var(--bg)", padding: "100px 4% 80px", position: "relative" }}>
+        {/* Card — overflow:hidden clips left text, NOT the protruding image (image is a sibling) */}
+        <div style={{
+          background: "var(--bg-dark)",
+          borderRadius: 40,
+          overflow: "hidden",
+          display: "flex",
+          alignItems: "stretch",
+          minHeight: 520,
+        }}>
+          {/* Left: Text */}
+          <div style={{ flex: "1 1 55%", padding: "clamp(48px, 7vw, 100px) clamp(40px, 7%, 80px)", display: "flex", flexDirection: "column", justifyContent: "center", position: "relative", zIndex: 2 }}>
+            <div className="overline" style={{ marginBottom: 24, letterSpacing: 4 }}>The Manifesto</div>
+            <h2 style={{
+              fontSize: "clamp(2.6rem, 5.5vw, 6rem)",
+              color: "#fff",
+              lineHeight: 0.92,
+              letterSpacing: "-3px",
+              fontWeight: 900,
+              textTransform: "uppercase",
+              marginBottom: 40
+            }}>
+              We don't just<br />
+              build apps.<br />
+              <span style={{ color: "var(--primary)" }}>We craft vibes.</span>
             </h2>
-            <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "1.05rem", maxWidth: 520, lineHeight: 1.7 }}>
-              Not a pretty brochure that nobody visits. Let us build something that brings you real results.
-            </p>
-          </Reveal>
-          <Reveal delay={150}>
-            <div style={{ background: "#fff", borderRadius: 20, padding: "clamp(24px, 5vw, 36px)", boxShadow: "0 20px 60px rgba(0,0,0,0.15)", width: "100%", maxWidth: 440 }}>
-              <h3 style={{ fontFamily: "Bricolage Grotesque", fontWeight: 700, fontSize: "1.2rem", color: "var(--bg-dark)", marginBottom: 6 }}>Start your project today</h3>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", marginBottom: 24 }}>Free consultation call</p>
-              <Link to="/contact" className="btn btn-primary" style={{ width: "100%" }}>Get a Free Consultation</Link>
-              <p style={{ color: "var(--text-muted)", fontSize: "0.8rem", textAlign: "center", marginTop: 16 }}>No commitment, no hard sell. Just a conversation.</p>
-            </div>
-          </Reveal>
+            <Link to="/contact" className="btn btn-primary" style={{ alignSelf: "flex-start" }}>Start a Project →</Link>
+          </div>
+          {/* Right placeholder — keeps layout space, image floats above as sibling */}
+          <div style={{ flex: "0 0 45%" }} />
+        </div>
+
+        {/* Image: sibling of card, bottom-anchored so full image shows and top protrudes above card */}
+        <div style={{
+          position: "absolute",
+          right: "4%",
+          bottom: "80px",
+          width: "48%",
+          zIndex: 10,
+          pointerEvents: "none"
+        }}>
+          <img
+            src="/lets_bring.webp"
+            alt=""
+            style={{
+              width: "100%",
+              height: "auto",
+              display: "block"
+            }}
+          />
         </div>
       </section>
 
-      {/* === Tech Stack Strip === */}
-      <section style={{ background: "var(--bg-dark)", padding: "60px 0", color: "#fff" }}>
-        <div style={{ padding: "0 8%", marginBottom: 32 }}>
-          <div style={{ color: "rgba(255,255,255,0.35)", fontWeight: 500, fontSize: "0.78rem", letterSpacing: 2, textTransform: "uppercase" }}>Technologies We Use</div>
-        </div>
-        <div className="marquee">
-          <div className="marquee-track">
-            {Array.from({ length: 3 }).flatMap((_, k) => techList.map((t, i) => (
-              <span key={`${k}-${i}`} style={{ background: "var(--bg-dark-2)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "8px 20px", fontWeight: 600, fontSize: "0.85rem", color: "rgba(255,255,255,0.6)" }}>{t}</span>
-            )))}
-          </div>
-          <div className="marquee-track" aria-hidden="true">
-            {Array.from({ length: 3 }).flatMap((_, k) => techList.map((t, i) => (
-              <span key={`b-${k}-${i}`} style={{ background: "var(--bg-dark-2)", border: "1px solid var(--border-dark)", borderRadius: 100, padding: "8px 20px", fontWeight: 600, fontSize: "0.85rem", color: "rgba(255,255,255,0.6)" }}>{t}</span>
-            )))}
-          </div>
-        </div>
-      </section>
+      <UnlockDiscountModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };

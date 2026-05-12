@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import StaggeredMenu from "./components/StaggeredMenu.jsx";
+import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import Home from "./pages/Home.jsx";
@@ -55,20 +55,7 @@ const AnimatedRoutes = () => {
 const App = () => (
   <BrowserRouter>
     <ScrollToTop />
-    <StaggeredMenu
-      position="right"
-      items={menuItems}
-      socialItems={socialItems}
-      displaySocials={true}
-      displayItemNumbering={true}
-      menuButtonColor="#ffffff"
-      openMenuButtonColor="#111111"
-      changeMenuColorOnOpen={true}
-      colors={['#FF3B5C', '#FFD166']}
-      accentColor="#FF3B5C"
-      onMenuOpen={() => console.log('Menu opened')}
-      onMenuClose={() => console.log('Menu closed')}
-    />
+    <Navbar />
     <main style={{ paddingTop: 0 }}>
       <AnimatedRoutes />
     </main>

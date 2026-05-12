@@ -37,7 +37,7 @@ export function Globe({ className }) {
         height={dimensions.height}
         backgroundColor="rgba(0,0,0,0)"
         showAtmosphere={true}
-        atmosphereColor="#078AF5"
+        atmosphereColor="#F47A1F"
         atmosphereAltitude={0.3}
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
         bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
